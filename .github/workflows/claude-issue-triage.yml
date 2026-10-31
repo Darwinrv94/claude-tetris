@@ -53,6 +53,11 @@ jobs:
                `gh issue comment ${{ github.event.issue.number }} --edit-last --create-if-none --body-file <archivo>`
                (así, al editar el issue se actualiza el mismo comentario en vez de crear otro).
 
+            El comentario debe estar en Markdown compatible con GitHub (GitHub Flavored Markdown):
+            encabezados con `#`, listas con `-` o `1.`, código en línea con comillas invertidas,
+            bloques de código con triple comilla invertida y lenguaje (p. ej. ```js), y una línea en
+            blanco entre bloques. No uses HTML innecesario ni envuelvas todo el comentario en un bloque de código.
+
             Formato del diagnóstico (Markdown):
             ## 🤖 Diagnóstico automático
             **Tipo:** bug / mejora / pregunta / documentación / otro
