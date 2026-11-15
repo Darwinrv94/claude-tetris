@@ -13,6 +13,7 @@ Implementación del clásico **Tetris** en JavaScript vanilla, usando HTML5 Canv
 - [Tetris](#tetris)
   - [Tabla de contenidos](#tabla-de-contenidos)
   - [Qué hace el proyecto](#qué-hace-el-proyecto)
+  - [Skins](#skins)
   - [Cómo ejecutar el juego](#cómo-ejecutar-el-juego)
     - [Opción 1: abrir el archivo directamente](#opción-1-abrir-el-archivo-directamente)
     - [Opción 2: servidor local (recomendado)](#opción-2-servidor-local-recomendado)
@@ -42,6 +43,24 @@ Es una versión jugable del Tetris clásico con todas las mecánicas que esperar
 - **Sistema de puntuación** clásico de Tetris (100 / 300 / 500 / 800 multiplicado por nivel).
 - **Niveles** que aumentan cada 10 líneas y aceleran la caída.
 - **Pausa** y **Game Over** con opción de reinicio.
+- **Skins visuales** seleccionables desde el panel lateral (ver [Skins](#skins)).
+
+---
+
+## Skins
+
+En el panel lateral, el selector **SKIN** cambia el aspecto de las piezas al instante, sin recargar la página:
+
+| Skin        | Aspecto                                                                 |
+| ----------- | ----------------------------------------------------------------------- |
+| `Retro`     | Cuadrados planos con un brillo superior (estilo original, por defecto). |
+| `Neon`      | Colores saturados con resplandor (`shadowBlur`) sobre tablero negro.    |
+| `Pastel`    | Colores suaves y esquinas redondeadas.                                  |
+| `Pixel art` | Bloques con bisel claro/oscuro y textura de píxeles tramada.            |
+
+La skin elegida se guarda en `localStorage` (clave `tetris.skin`) y se recupera al volver a abrir el juego. Funciona junto con el modo claro/oscuro (Neon mantiene el tablero negro en ambos).
+
+Para añadir una skin nueva, agrega una entrada al objeto `SKINS` en `game.js` con `label`, `colors` (7 colores en el orden I, O, T, S, Z, J, L) y una función `draw(context, x, y, color, size, alpha)`; después añade su `<option>` en `#skin-select` y, si quieres, reglas `[data-skin="…"]` en `style.css` para el fondo y la rejilla.
 
 ---
 
@@ -174,7 +193,8 @@ Algunos parámetros fáciles de tunear en `game.js`:
 | `COLS`         | Columnas del tablero                     | `10`                  |
 | `ROWS`         | Filas del tablero                        | `20`                  |
 | `BLOCK`        | Tamaño en píxeles de cada celda          | `30`                  |
-| `COLORS`       | Paleta de colores por tipo de pieza      | 7 colores             |
+| `COLORS`       | Paleta de la skin Retro (por tipo)       | 7 colores             |
+| `SKINS`        | Skins visuales (paleta + dibujo)         | 4 skins               |
 | `LINE_SCORES`  | Puntos por 1, 2, 3 o 4 líneas eliminadas | `[0,100,300,500,800]` |
 | `dropInterval` | Velocidad inicial de caída en ms         | `1000`                |
 

@@ -217,3 +217,59 @@ kbd {
 #theme-toggle:hover {
   border-color: var(--accent);
 }
+
+/* ---- Skins ---- */
+#skin-select {
+  background: var(--kbd-bg);
+  color: var(--text);
+  border: 1px solid var(--kbd-border);
+  border-radius: 4px;
+  padding: 4px 6px;
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+#skin-select:hover,
+#skin-select:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+/* Neon: tablero negro en ambos temas */
+[data-skin="neon"] {
+  --grid: #14141f;
+}
+
+[data-skin="neon"] #board,
+[data-skin="neon"] #next-canvas {
+  background: #000;
+}
+
+/* Pastel: fondo suave */
+[data-skin="pastel"] {
+  --grid: #2a2633;
+}
+
+[data-skin="pastel"] #board,
+[data-skin="pastel"] #next-canvas {
+  background: #1f1c27;
+}
+
+[data-theme="light"][data-skin="pastel"] {
+  --grid: #efe6f3;
+}
+
+[data-theme="light"][data-skin="pastel"] #board,
+[data-theme="light"][data-skin="pastel"] #next-canvas {
+  background: #fdf9ff;
+}
+
+/* Pixel art: rejilla más marcada */
+[data-skin="pixel"] {
+  --grid: #2c2c3e;
+}
+
+[data-theme="light"][data-skin="pixel"] {
+  --grid: #cfd4e0;
+}

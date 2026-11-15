@@ -23,7 +23,8 @@ Three files: `index.html` (DOM + two canvases + overlay), `style.css` (dark them
 
 Key invariants in `game.js`:
 
-- **Cell value = piece type = color index.** `PIECES[type]` matrices store `type` (1–7) in filled cells; `merge()` copies those values into `board`; `drawBlock` looks them up in `COLORS[index]`. Adding/reordering pieces requires keeping `PIECES`, `COLORS`, and `randomPiece()`'s `* 7` in sync.
+- **Cell value = piece type = color index.** `PIECES[type]` matrices store `type` (1–7) in filled cells; `merge()` copies those values into `board`; `drawBlock` looks them up in `currentSkin.colors[index]`. Adding/reordering pieces requires keeping `PIECES`, every skin's `colors` (incl. `COLORS`, used by retro), and `randomPiece()`'s `* 7` in sync.
+- **Skins:** `SKINS` (`retro`, `neon`, `pastel`, `pixel`) each hold `{ label, colors: [null, ...7], draw(context, x, y, color, size, alpha) }`; colors live per skin. `drawBlock` sets `globalAlpha` (ghost = 0.2), delegates to `currentSkin.draw`, then resets `globalAlpha = 1` and `shadowBlur = 0`. `applySkin()` sets `currentSkin`, `<html data-skin>` (CSS overrides board/next background and `--grid` per skin), syncs `#skin-select`, and redraws. Persisted as `tetris.skin` in `localStorage`. The keydown handler ignores events from `<select>`.
 - **Global mutable state** (`board`, `current`, `next`, `score`, `lines`, `level`, `paused`, `gameOver`, `dropInterval`, `animId`, …) is declared once at top and reset in `init()`. Restart button calls `init()`.
 - **Piece lifecycle:** `lockPiece()` = `merge()` → `clearLines()` → `spawn()`. `spawn()` promotes `next` to `current` and calls `endGame()` if the new piece collides immediately. Gravity (`loop`), soft drop, and hard drop all funnel into `lockPiece()`.
 - **Rotation:** `rotateCW` (transpose + reverse), `tryRotate` tries horizontal kicks `[0, -1, 1, -2, 2]`. Not SRS.
