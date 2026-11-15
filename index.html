@@ -48,7 +48,20 @@
         <div class="overlay-box" id="gameover-box">
           <p id="overlay-title">GAME OVER</p>
           <p id="overlay-score"></p>
-          <button id="restart-btn">Reiniciar</button>
+          <form id="name-form" class="name-form hidden" autocomplete="off">
+            <label for="name-input">¡Nuevo récord! Tu nombre:</label>
+            <div class="name-row">
+              <input id="name-input" type="text" maxlength="12" placeholder="Jugador" />
+              <button id="name-save" type="submit">Guardar</button>
+            </div>
+          </form>
+          <section id="records" class="records hidden">
+            <span class="label">TOP 5 RÉCORDS</span>
+            <ol id="records-list"></ol>
+            <p id="records-stats" class="records-stats"></p>
+            <button id="reset-records-btn" type="button">Resetear récords</button>
+          </section>
+          <button id="restart-btn">Jugar</button>
         </div>
 
         <div class="overlay-box hidden" id="pause-menu" role="dialog" aria-label="Menú de pausa">
