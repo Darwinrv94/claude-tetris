@@ -19,7 +19,7 @@ Verification is manual: play the game in a browser.
 
 ## Architecture
 
-Three files: `index.html` (DOM + two canvases + overlay), `style.css` (dark theme), `game.js` (all logic, global script, `'use strict'`, no modules).
+Three files: `index.html` (DOM + two canvases + game-over `#overlay` + `#pause-menu`), `style.css` (dark theme), `game.js` (all logic, global script, `'use strict'`, no modules).
 
 Key invariants in `game.js`:
 
@@ -27,11 +27,12 @@ Key invariants in `game.js`:
 - **Global mutable state** (`board`, `current`, `next`, `score`, `lines`, `level`, `paused`, `gameOver`, `dropInterval`, `animId`, …) is declared once at top and reset in `init()`. Restart button calls `init()`.
 - **Piece lifecycle:** `lockPiece()` = `merge()` → `clearLines()` → `spawn()`. `spawn()` promotes `next` to `current` and calls `endGame()` if the new piece collides immediately. Gravity (`loop`), soft drop, and hard drop all funnel into `lockPiece()`.
 - **Rotation:** `rotateCW` (transpose + reverse), `tryRotate` tries horizontal kicks `[0, -1, 1, -2, 2]`. Not SRS.
-- **Loop:** `requestAnimationFrame` with `dropAccum` vs `dropInterval`. Level = `floor(lines / 10) + 1`; `dropInterval = max(100, 1000 - (level - 1) * 90)`, recomputed only inside `clearLines()`.
+- **Loop:** `requestAnimationFrame` with `dropAccum` vs `dropInterval`. Level = `max(startLevel, floor(lines / 10) + 1)`; `dropInterval = max(100, 1000 - (level - 1) * 90)`, set in `init()` and recomputed inside `clearLines()`.
+- **Pause menu:** `P`/`Escape` call `togglePause()` → `openPauseMenu()` / `resumeGame()`. `#pause-menu` is separate from `#overlay` (game over only). Keydown ignores events targeting `input`/`select`/`textarea`/`button` (except Escape, and P on buttons). While open, Tab focus is trapped in the menu. After resuming, game keys are ignored for `RESUME_GRACE_MS`, and `e.repeat` events of keys held since before resume/restart are ignored (`freshKeys`).
+- **Start level:** `#start-level` select (1–10, `localStorage` key `tetris.startLevel`). `init()` captures it into `startLevel`, so changing it mid-game only affects the next game. `clearLines()` uses `level = max(startLevel, floor(lines / 10) + 1)`.
 - **HUD** is updated via `updateHUD()`; call it after any score/lines/level change.
 - Board size: changing `COLS`, `ROWS`, or `BLOCK` requires updating `<canvas id="board">` `width`/`height` in `index.html` (`COLS*BLOCK` × `ROWS*BLOCK`). The next-piece preview assumes a 4×4 grid of 30px in a 120×120 canvas.
 
 ## Known quirks (current code)
 
-- Unpausing (`togglePause`) does not hide the overlay.
 - `endGame()` cancels the RAF, but `loop()` re-requests a frame right after `lockPiece()` returns, so the loop keeps running after game over.
