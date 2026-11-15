@@ -252,6 +252,32 @@ kbd {
   color: var(--btn-text);
 }
 
+/* ---- Selector de skin ---- */
+#skin-select {
+  background: var(--board-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+#skin-select:hover {
+  border-color: var(--accent);
+}
+
+/* Neon: fondo negro en ambos temas */
+:root[data-skin="neon"] {
+  --board-bg: #000000;
+  --grid: #14142a;
+  --border: #00f0ff55;
+}
+
+:root[data-skin="neon"] #board {
+  box-shadow: 0 0 24px #00f0ff55;
+}
+
 /* ---- Toggle de tema ---- */
 #theme-toggle {
   position: absolute;
