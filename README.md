@@ -42,6 +42,7 @@ Es una versión jugable del Tetris clásico con todas las mecánicas que esperar
 - **Sistema de puntuación** clásico de Tetris (100 / 300 / 500 / 800 multiplicado por nivel).
 - **Niveles** que aumentan cada 10 líneas y aceleran la caída.
 - **Pausa** y **Game Over** con opción de reinicio.
+- **Tabla de records local**: pantalla de inicio con el top 5 (nombre, puntos, líneas, nivel), mejor combo y líneas máximas. Al terminar, si la puntuación entra en el top 5 se pide un nombre (máx. 12 caracteres; vacío = "Anónimo"). Se guarda en `localStorage` (`tetris.records`) y se puede borrar con "Borrar records".
 
 ---
 
@@ -122,6 +123,9 @@ Contiene toda la lógica del juego. A grandes rasgos:
 ### Flujo del juego
 
 ```
+showStartScreen()                   → tablero vacío + tabla de records
+  └─ botón "Jugar" → init()
+
 init()
   ├─ createBoard()                  → matriz vacía
   ├─ next = randomPiece()
@@ -137,7 +141,9 @@ init()
    keydown → mover / rotar / soft-drop / hard-drop / pausa
 ```
 
-Cuando una pieza recién generada ya colisiona al aparecer (`spawn`), se dispara `endGame()` y se muestra el overlay de **Game Over**.
+Cuando una pieza recién generada ya colisiona al aparecer (`spawn`), se dispara `endGame()` y se muestra el overlay de **Game Over** con la puntuación, el combo y las líneas de la partida frente a los mejores, y la tabla de records.
+
+Un **combo** cuenta las piezas consecutivas que limpian al menos una línea; se reinicia al fijar una pieza sin limpiar.
 
 ---
 

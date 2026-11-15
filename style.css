@@ -217,3 +217,135 @@ kbd {
 #theme-toggle:hover {
   border-color: var(--accent);
 }
+
+/* ---- Records ---- */
+.records {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.records.hidden,
+.name-form.hidden {
+  display: none;
+}
+
+.start-title {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--accent);
+}
+
+.records-table {
+  border-collapse: collapse;
+  min-width: 280px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--board-bg);
+  border: 1px solid var(--border);
+}
+
+.records-table th {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--label);
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.records-table td {
+  padding: 4px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.records-table td:nth-child(3) {
+  text-align: right;
+}
+
+.records-table tr.current td {
+  background: var(--accent);
+  color: var(--btn-text);
+  font-weight: 700;
+}
+
+.records-table .records-empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 10px 8px;
+}
+
+.records-stats {
+  font-size: 13px;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.records-stats span {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.records-stats .new-record {
+  color: var(--danger);
+}
+
+.name-form {
+  display: flex;
+  gap: 6px;
+}
+
+#name-input {
+  width: 150px;
+  background: var(--board-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 14px;
+  user-select: text;
+}
+
+#name-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.records-btn {
+  background: var(--accent);
+  color: var(--btn-text);
+  border: none;
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: background 0.15s;
+}
+
+.records-btn:hover {
+  background: var(--accent-hover);
+}
+
+.records-btn.secondary {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  padding: 6px 14px;
+}
+
+.records-btn.secondary:hover {
+  color: var(--danger);
+  border-color: var(--danger);
+  background: transparent;
+}
