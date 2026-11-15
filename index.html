@@ -45,10 +45,28 @@
       </aside>
 
       <div id="overlay" class="overlay hidden">
-        <div class="overlay-box">
+        <div class="overlay-box" id="gameover-box">
           <p id="overlay-title">GAME OVER</p>
           <p id="overlay-score"></p>
-          <button id="restart-btn">Reiniciar</button>
+          <button id="restart-btn" class="menu-btn">Reiniciar</button>
+        </div>
+
+        <div class="overlay-box" id="pause-menu" role="dialog" aria-label="Menú de pausa" hidden>
+          <p class="pause-title">PAUSA</p>
+          <button id="resume-btn" class="menu-btn" type="button">Reanudar</button>
+          <button id="pause-restart-btn" class="menu-btn" type="button">Reiniciar</button>
+          <button id="controls-btn" class="menu-btn secondary" type="button" aria-expanded="false">Ver controles</button>
+          <ul id="pause-controls" class="pause-controls" hidden>
+            <li><kbd>←</kbd><kbd>→</kbd> mover</li>
+            <li><kbd>↑</kbd> / <kbd>X</kbd> rotar</li>
+            <li><kbd>↓</kbd> bajar</li>
+            <li><kbd>Space</kbd> caída</li>
+            <li><kbd>P</kbd> / <kbd>Esc</kbd> pausa</li>
+          </ul>
+          <label class="level-select" for="start-level">
+            <span>Nivel inicial (próxima partida)</span>
+            <select id="start-level"></select>
+          </label>
         </div>
       </div>
     </div>
